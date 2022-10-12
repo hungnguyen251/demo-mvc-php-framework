@@ -45,13 +45,15 @@ class App {
         }
 
         if (file_exists('app/controllers/'.($this->__controller) . '.php')) {
-            $urlClassName = '\\Controllers\\' . ($this->__controller) . '.php';
-            // echo $urlClassName;
+            // require_once __DIR__ . './Controllers/' . ($this->__controller) . '.php';
             require_once ('App\\Controllers\\' . ($this->__controller) . '.php');
-            $className = "App\\Controllers\\".$this->__controller;
-            var_dump($className);
-            $this->__controller = new $className(); 
-            // unset($urlArr[0]);
+            $className = "App\Controller\\" . $this->__controller;
+            if (class_exists($className)) {
+                $this->__controller = new $className();
+                unset($urlArr[0]);
+            } else {
+                $this->loadError();
+            }
         } else {
             $this->loadError();
         }
