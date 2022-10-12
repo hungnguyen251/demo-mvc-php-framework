@@ -1,4 +1,6 @@
 <?php
+namespace App;
+
 class App {
 
     private $__controller; 
@@ -37,15 +39,19 @@ class App {
 
         //Handle controllers
         if (!empty($urlArr[0])) {
-            $this->__controller = ucfirst($urlArr[0]);
+            $this->__controller = ucfirst($urlArr[0]) . 'Controller';
         } else {
-            $this->__controller = ucfirst($this->__controller);
+            $this->__controller = ucfirst($this->__controller) . 'Controller';
         }
 
-        if (file_exists('app/controllers/'.($this->__controller). '.php')) {
-            require_once 'controllers/' . ($this->__controller) . '.php';
-            $this->__controller = new $this->__controller();
-            unset($urlArr[0]);
+        if (file_exists('app/controllers/'.($this->__controller) . '.php')) {
+            $urlClassName = '\\Controllers\\' . ($this->__controller) . '.php';
+            // echo $urlClassName;
+            require_once ('App\\Controllers\\' . ($this->__controller) . '.php');
+            $className = "App\\Controllers\\".$this->__controller;
+            var_dump($className);
+            $this->__controller = new $className(); 
+            // unset($urlArr[0]);
         } else {
             $this->loadError();
         }
@@ -59,7 +65,12 @@ class App {
         //Handle params
         $this->__params = array_values($urlArr);
         
-        call_user_func_array([$this->__controller, $this->__action], $this->__params);
+        //Check method exist
+        if (method_exists($this->__controller, $this->__action)) {
+            call_user_func_array([$this->__controller, $this->__action], $this->__params);
+        } else {
+            $this->loadError();
+        }
     }
 
     public function loadError($name = '404') 
