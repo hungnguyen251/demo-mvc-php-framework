@@ -1,9 +1,11 @@
 <?php
 namespace App\Models;
 
-class Home
+use Model;
+
+class Home extends Model
 {
-    protected $table = 'users';
+    protected $table = 'home';
 
     public function getList()
     {

@@ -2,8 +2,9 @@
 namespace App\Controller;
 
 use App\Models\Home;
+use Controller;
 
-class HomeController
+class HomeController extends Controller
 {
     public $home;
 
