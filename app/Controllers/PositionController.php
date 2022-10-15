@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Models\Position;
 use Controller;
+use Request;
+use Response;
 
 class PositionController extends Controller 
 {
@@ -45,5 +47,20 @@ class PositionController extends Controller
 
     public function deleteData() {
         $this->position->deleteTest();
+    }
+
+    public function getPosition() {
+        $request = new Request();
+        $data = $request->getFields();
+        var_dump($data);
+        $this->render('position/add');
+    }
+
+    public function postPosition() {
+        $request = new Request();
+        $data = $request->getFields();
+        
+        $reponse = new Response();
+        $reponse->redirect('home/index');
     }
 }
