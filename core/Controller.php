@@ -2,6 +2,8 @@
 
 class  Controller 
 {
+    public $db;
+
     /*
     *
     *   Rendre dữ liệu từ controller ra view

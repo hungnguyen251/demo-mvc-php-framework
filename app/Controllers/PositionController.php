@@ -13,7 +13,8 @@ class PositionController extends Controller
     }
 
     public function index() {
-        $data = $this->position->findById(16);
+        $data = $this->db->table('position')->where('id','=', '16')->get();
+        print_r($data);
         return $data;
     }
 

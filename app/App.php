@@ -2,6 +2,7 @@
 namespace App;
 
 use Route;
+use DB;
 
 class App {
 
@@ -9,6 +10,7 @@ class App {
     private $__action;
     private $__params;
     private $__routes;
+    private $__db;
 
     function __construct()
     {
@@ -23,7 +25,13 @@ class App {
         $this->__action = 'index';
         $this->__params = [];
 
-        $url = $this->handleUrl();
+        //Xử lý để Controller cũng có thể sử dụng được Query Builder
+        if (class_exists('DB')) {
+            $dbObject = new DB();
+            $this->__db = $dbObject->db; 
+        }
+
+        $this->handleUrl();
     }
 
     function getUrl()
@@ -59,6 +67,12 @@ class App {
             if (class_exists($className)) {
                 $this->__controller = new $className();
                 unset($urlArr[0]);
+
+                //Xử lý để Controller cũng có thể sử dụng được Query Builder
+                if (!empty($this->__db)) {
+                    $this->__controller->db = $this->__db; 
+                }
+        
             } else {
                 $this->loadError();
             }

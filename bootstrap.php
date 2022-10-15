@@ -17,13 +17,13 @@ require_once 'app/App.php'; //Load App
 
 //Check và load database
 if (!empty($config['database'])) {
-    // $dbConfig = array_filter($config['database']); //check mảng rỗng không export
     $dbConfig = $config['database'];
+    
     if (!empty($dbConfig)) {
         require_once 'core/Connection.php';
         require_once 'core/QueryBuilder.php';
         require_once 'core/Database.php';
-        // $dbs = new Database();
+        require_once 'core/DB.php';
     }
 }
 

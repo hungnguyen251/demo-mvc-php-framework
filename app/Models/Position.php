@@ -2,7 +2,6 @@
 namespace App\Models;
 
 use Model;
-use QueryBuilder;
 
 class Position extends Model 
 {
