@@ -3,13 +3,13 @@ namespace App\Services\Interfaces;
 
 interface ICrud
 {
-    function insert($table, $data);
+    function insertData($table, $data);
 
     function updateById($table, $data, $condition='');
 
     function getData($table, $condition='');
 
-    function delete($table, $condition='');
+    function deleteData($table, $condition='');
 
     function getCount($table);
 }

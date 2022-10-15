@@ -5,6 +5,7 @@ use App\Services\Interfaces\ICrud;
 class Database implements ICrud
 {
     private $__conn;
+    use QueryBuilder; 
 
     public function __construct()
     {
@@ -12,7 +13,7 @@ class Database implements ICrud
         $this->__conn = Connection::getInstance($dbConfig);
     }
 
-    public function insert($table, $data)
+    public function insertData($table, $data)
     {
         if (!empty($data)) {
             $fieldStr = '';
@@ -25,7 +26,7 @@ class Database implements ICrud
             $fieldStr = rtrim($fieldStr, ',');
             $valueStr = rtrim($valueStr, ',');
 
-            $sql = "INSERT INTO $table($fieldStr) VALUES ($valueStr)";
+            $sql = "INSERT INTO $table ($fieldStr) VALUES ($valueStr)";
             $status = $this->query($sql);
 
             if ($status) {
@@ -73,7 +74,7 @@ class Database implements ICrud
         }
     }
 
-    public function delete($table, $condition='')
+    public function deleteData($table, $condition='')
     {
         if (!empty($condition)) {
             $sql = "DELETE FROM $table WHERE $condition";

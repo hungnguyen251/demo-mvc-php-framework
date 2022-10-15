@@ -21,6 +21,7 @@ if (!empty($config['database'])) {
     $dbConfig = $config['database'];
     if (!empty($dbConfig)) {
         require_once 'core/Connection.php';
+        require_once 'core/QueryBuilder.php';
         require_once 'core/Database.php';
         // $dbs = new Database();
     }
