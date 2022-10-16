@@ -15,8 +15,7 @@ class PositionController extends Controller
     }
 
     public function index() {
-        $data = $this->db->table('position')->where('id','=', '16')->get();
-        print_r($data);
+        $data = $this->db->table('position')->select('id')->whereBetween('id',[15,20])->get();
         return $data;
     }
 

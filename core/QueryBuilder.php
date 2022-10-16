@@ -9,6 +9,9 @@ trait QueryBuilder
     public $limit = '';
     public $orderBy = '';
     public $innerJoin = '';
+    public $leftJoin = '';
+    public $rightJoin = '';
+    public $whereBetween = '';
 
     public function table($tableName) {
         $this->tableName = $tableName;
@@ -95,6 +98,32 @@ trait QueryBuilder
     }
 
     /*
+    *   Xây dựng tính năng liên kết giữa các bảng INNER JOIN
+    */
+    public function leftJoin($tableName, $relation) {
+        $this->leftJoin .= 'LEFT JOIN ' .$tableName.' ON '.$relation.' ';
+        return $this;
+    }
+
+    /*
+    *   Xây dựng tính năng liên kết giữa các bảng INNER JOIN
+    */
+    public function rightJoin($tableName, $relation) {
+        $this->rightJoin .= 'RIGHT JOIN ' .$tableName.' ON '.$relation.' ';
+        return $this;
+    }
+
+    /*
+    *   Xây dựng tính năng WHERE BETWEEN
+    */
+    public function whereBetween($field, $values=[]) {
+        if (2 == count($values)) {
+            $this->whereBetween = ' WHERE ' . $field . ' BETWEEN ' . $values[0] .' AND '.$values[1].' ';
+        }
+        return $this;
+    }
+
+    /*
     *   Thêm dữ liệu vào DB INSERT
     */
     public function insert($data) {
@@ -134,7 +163,7 @@ trait QueryBuilder
     *   Lấy ra các cả bản ghi trong DB theo điều kiện
     */
     public function get() {
-        $sqlQuery = "SELECT $this->selectField FROM $this->tableName $this->innerJoin $this->where $this->orderBy $this->limit";
+        $sqlQuery = "SELECT $this->selectField FROM $this->tableName $this->innerJoin $this->leftJoin $this->rightJoin $this->where $this->whereBetween $this->orderBy $this->limit";
         $query = $this->query($sqlQuery);
 
         //Reset field de tranh bi luu du lieu khi goi lai
@@ -150,7 +179,7 @@ trait QueryBuilder
     *   Lấy ra  bản ghi đầu tiên trong DB theo điều kiện
     */
     public function first() {
-        $sqlQuery = "SELECT $this->selectField FROM $this->tableName $this->where";
+        $sqlQuery = "SELECT $this->selectField FROM $this->tableName $this->where $this->whereBetween";
         $query = $this->query($sqlQuery);
 
         //Reset field de tranh bi luu du lieu khi goi lai
@@ -173,5 +202,8 @@ trait QueryBuilder
         $this->limit = '';
         $this->orderBy = '';
         $this->innerJoin = '';
+        $this->leftJoin = '';
+        $this->rightJoin = '';
+        $this->whereBetween = '';
     }
 }

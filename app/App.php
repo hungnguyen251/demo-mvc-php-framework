@@ -4,17 +4,20 @@ namespace App;
 use Route;
 use DB;
 
-class App {
+class App 
+{
 
     private $__controller; 
     private $__action;
     private $__params;
     private $__routes;
     private $__db;
+    static public $app;
 
-    function __construct()
-    {
-        global $routes;
+    function __construct() {
+        global $routes, $config;
+
+        self::$app = $this;
 
         $this->__routes = new Route();
 
@@ -34,8 +37,7 @@ class App {
         $this->handleUrl();
     }
 
-    function getUrl()
-    {
+    function getUrl() {
         if(!empty($_SERVER['PATH_INFO'])) {
             $url = $_SERVER['PATH_INFO'];
         } else {
@@ -45,8 +47,7 @@ class App {
         return $url;
     }
 
-    public function handleUrl() 
-    {
+    public function handleUrl() {
         $url = $this->getUrl();
         $url = $this->__routes->handleRoute($url);
 
@@ -97,8 +98,14 @@ class App {
         }
     }
 
-    public function loadError($name = '404') 
-    {
+    /**
+     * Lấy ra tên controller
+     */
+    public function getCurrentController() {
+        return $this->__controller;
+    }
+
+    public function loadError($name = '404') {
         require_once 'error/' . $name . '.php';
     }
 }
