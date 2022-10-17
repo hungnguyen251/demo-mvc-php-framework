@@ -107,7 +107,7 @@ class Request
 
                     if ('required' == $ruleName) {
                         //Điều kiện kiểm tra nếu nhập vào rỗng
-                        if (empty(trim($dataField[$fieldName]))) {
+                        if (empty($dataField[$fieldName])) {
                             $this->setErrors($fieldName, $ruleName);
                             $checkValidate = false;
                         }
@@ -115,7 +115,7 @@ class Request
 
                     if ('min' == $ruleName) {
                         //Điều kiện so sánh độ dài của chuỗi nhập vào với điều kiện đưa ra
-                        if (strlen(trim($dataField[$fieldName])) < $ruleValue) {
+                        if (!empty($dataField[$fieldName]) && strlen(trim($dataField[$fieldName])) < $ruleValue) {
                             $this->setErrors($fieldName, $ruleName);
                             $checkValidate = false;
                         }
@@ -123,7 +123,7 @@ class Request
 
                     if ('max' == $ruleName) {
                         //Điều kiện so sánh độ dài của chuỗi nhập vào với điều kiện đưa ra
-                        if (strlen(trim($dataField[$fieldName])) > $ruleValue) {
+                        if (!empty($dataField[$fieldName]) && strlen(trim($dataField[$fieldName])) > $ruleValue) {
                             $this->setErrors($fieldName, $ruleName);
                             $checkValidate = false;
                         }
@@ -131,7 +131,7 @@ class Request
 
                     if ('email' == $ruleName) {
                         //Điều kiện kiểm tra định dạng email
-                        if (!filter_var($dataField[$fieldName], FILTER_VALIDATE_EMAIL)) {
+                        if (!empty($dataField[$fieldName]) && !filter_var($dataField[$fieldName], FILTER_VALIDATE_EMAIL)) {
                             $this->setErrors($fieldName, $ruleName);
                             $checkValidate = false;
                         }
@@ -139,7 +139,7 @@ class Request
 
                     if ('int' == $ruleName) {
                         //Điều kiện kiểm tra định dạng số nguyên
-                        if (!filter_var($dataField[$fieldName], FILTER_VALIDATE_INT)) {
+                        if (!empty($dataField[$fieldName]) && !filter_var($dataField[$fieldName], FILTER_VALIDATE_INT)) {
                             $this->setErrors($fieldName, $ruleName);
                             $checkValidate = false;
                         }
@@ -147,7 +147,7 @@ class Request
 
                     if ('match' == $ruleName) {
                         //Điều kiện so khớp mật khẩu ...
-                        if (trim($dataField[$fieldName]) != trim($dataField[$ruleValue])) {
+                        if (!empty($dataField[$fieldName]) && trim($dataField[$fieldName]) != trim($dataField[$ruleValue])) {
                             $this->setErrors($fieldName, $ruleName);
                             $checkValidate = false;
                         }
@@ -166,7 +166,7 @@ class Request
                             $fieldCheck = $rulesArr[2];
                         }
 
-                        if (!empty($fieldCheck) && !empty($tableName)) {
+                        if (!empty($dataField[$fieldName]) && !empty($fieldCheck) && !empty($tableName)) {
                             $checkExits = $this->db->query("SELECT $fieldCheck FROM $tableName WHERE $fieldCheck='trim($dataField[$fieldName])'")->rowCount();
                             if (!empty($checkExits)) {
                                 $this->setErrors($fieldName, $ruleName);
@@ -178,7 +178,7 @@ class Request
 
                     //Callback validate để custom validate tự do, ..etc sử dụng Regular Expression
                     if (preg_match('~^callback_(.+)~is', $ruleName, $callbackArr)) {
-                        if (!empty($callbackArr[1])) {
+                        if (!empty($dataField[$fieldName]) && !empty($callbackArr[1])) {
                             //Lấy ra kiểu check : exp check_phone, check_age
                             $callbackName = $callbackArr[1];
 
@@ -196,7 +196,6 @@ class Request
                             }
                         }
                     }
-
                     /** 
                      * Có thể làm thêm các điều kiện :
                      * date, nullable, digits(độ dài số nguyên),numeric,string

@@ -10,7 +10,9 @@ class  Controller
     */
     public function render($view, $data=[]) {
         //Đổi key của mảng thành biến: Ví dụ extract($data['user']) = $user
-        extract($data);
+        if (!empty($data)) {
+            extract($data);
+        }
 
         //Check file trước khi render
         if (file_exists('app/Views/'.$view . '.php')) {
