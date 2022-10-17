@@ -16,7 +16,6 @@ $webRoot = $webRoot . '/' . $folder;
 
 define('__WEB__ROOT', $webRoot);
 
-
 require_once __DIR__. '/vendor/autoload.php';
 $configsDir = scandir('configs');
 
@@ -29,6 +28,7 @@ if (!empty($configsDir)) {
 }
 
 require_once 'core/Route.php'; //Load Route class
+require_once 'core/Session.php'; //Load Session
 require_once 'app/App.php'; //Load App
 
 //Check và load database

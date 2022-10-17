@@ -1,12 +1,19 @@
 <?php
 echo '<pre>';
 if (!empty($errors)) {
+    //Test session gửi từ getUser (UserController)
+    echo 'Tổng hợp lỗi từ request->session trong users/add';
+
     echo '<pre>';
     print_r($errors);
     echo '</pre>';
 
     echo '<pre>';
     print_r($old);
+    echo '</pre>';
+
+    echo '<pre>';
+    print_r($msg);
     echo '</pre>';
 }
 ?>

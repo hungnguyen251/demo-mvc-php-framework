@@ -13,6 +13,7 @@ class  Controller
         if (!empty($data)) {
             extract($data);
         }
+        // extract($data);
 
         //Check file trước khi render
         if (file_exists('app/Views/'.$view . '.php')) {

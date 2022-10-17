@@ -105,7 +105,11 @@ class App
         return $this->__controller;
     }
 
-    public function loadError($name = '404') {
+    public function loadError($name = '404',$data=[]) {
+        if (!empty($data)) {
+            extract($data);
+        }
+
         require_once 'error/' . $name . '.php';
     }
 }
