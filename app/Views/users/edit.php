@@ -1,4 +1,4 @@
 <?php
-var_dump($dataUser);
+var_dump($data);
 ?>
-<h1>Sua nguuoi dung</h1>
+<h1>Sửa người dùng</h1>

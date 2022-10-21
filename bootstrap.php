@@ -43,6 +43,21 @@ if (!empty($config['database'])) {
     }
 }
 
+//Load helpers
+require_once 'core/Helper.php';
+
+$allHelpers = scandir('app/Helpers');
+if (!empty($allHelpers)) {
+    foreach ($allHelpers as $item) {
+        if ($item != '.' && $item != '..' && file_exists('app/Helpers/' . $item)) {
+            require_once ('app/Helpers/' . $item);
+        }
+    }
+}
+
+require_once 'core/ServiceProvider.php'; //Load Service Provider Class
+require_once 'core/View.php'; //Load View Class
+
 require_once 'core/Model.php'; //Load Base Model
 require_once 'core/Controller.php'; //Load base controller
 require_once 'core/Request.php'; //Load Request

@@ -54,6 +54,9 @@ class App
         $urlArr = array_filter(explode('/',$url));
         $urlArr = array_values($urlArr);
 
+        //Gọi ra hàm handleAppServiceProvider
+        $this->handleAppServiceProvider($this->__db);
+
         //Handle controllers
         if (!empty($urlArr[0])) {
             $this->__controller = ucfirst($urlArr[0]) . 'Controller';
@@ -111,5 +114,30 @@ class App
         }
 
         require_once 'error/' . $name . '.php';
+    }
+
+    /**
+     * Hàm xử lý Service Provider
+     */
+    public function handleAppServiceProvider($db) {
+        global $config;
+        if (!empty($config['app']['boot'])) {
+            $serviceProviderArr = $config['app']['boot'];
+            foreach ($serviceProviderArr as $serviceName) {
+                if (file_exists($serviceName . '.php')) {
+                    require_once $serviceName . '.php';
+
+                    if (class_exists($serviceName)) {
+                        $serviceObject = new $serviceName();
+                        
+                        if (!empty($db)) {
+                            $serviceObject->db = $db;
+                        }
+                        
+                        $serviceObject->boot();
+                    }
+                }
+            }
+        }
     }
 }

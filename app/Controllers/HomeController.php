@@ -24,8 +24,8 @@ class HomeController extends Controller
         // $sessionData = Session::data();
         // $sessionData = Session::delete('test_ss');
         // Session::flash('test_flashSS','test Flash Session');
-        $sessionData = Session::flash('test_flashSS');
-        echo ($sessionData);
+        // $sessionData = Session::flash('test_flashSS');
+        // echo ($sessionData);
     }
 
     public function edit()

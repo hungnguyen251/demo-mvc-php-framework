@@ -18,7 +18,7 @@ class UserController extends Controller
     
     public function index()
     {
-        echo 'index User';
+        echo 'Index User';
     }
 
     public function edit()
@@ -92,9 +92,9 @@ class UserController extends Controller
                 // $this->dataErrors['old'] = $request->getFields(); //Lưu dữ liệu người dùng đã nhập để trả ra khi nhập lại
 
                 //Truong hop su dung Session
-                Session::flash('errors', $request->errors());
+                Session::flash('errors_validate', $request->errors());
                 Session::flash('msg', 'Đã xảy ra lỗi, vui lòng thử lại');
-                Session::flash('old', $request->getFields());
+                Session::flash('old_data', $request->getFields());
             }
             // $this->render('users/add', $this->dataErrors);   //Dùng cho trường hợp gửi lỗi không dùng session
     

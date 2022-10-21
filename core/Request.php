@@ -204,6 +204,10 @@ class Request
             }
         }
 
+        $sessionKey = Session::isInvalid();
+        Session::flash($sessionKey . '_errors_validate', $this->errors());
+        Session::flash($sessionKey . '_old_data', $this->getFields());  //Session luu du lieu nguoi nhap
+
         //Nếu không tồn tại rules return ra true
         return $checkValidate;
     }

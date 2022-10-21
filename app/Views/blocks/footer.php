@@ -8,5 +8,6 @@
 </head>
 <body>
     <h2>Footer</h2>
+    <p><?php echo !empty($copyright) ? $copyright : false; //Test view share?></p>
 </body>
 </html>
