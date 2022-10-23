@@ -33,11 +33,20 @@ class  Controller
         if (!empty($data)) {
             extract($data);
         }
-        // extract($data);
-
         //Check file trước khi render
-        if (file_exists('app/Views/'.$view . '.php')) {
-            require_once 'app/Views/'.$view . '.php';
+        if (preg_match('~^layouts~', $view)) {
+            if (file_exists('app/Views/'.$view . '.php')) {
+                require_once 'app/Views/'.$view . '.php';
+            }
+
+        } else {
+            $contentPage = null;
+            if (file_exists(__DIR__ROOT . '/app/Views/'.$view . '.php')) {
+                $contentPage = file_get_contents(__DIR__ROOT . '/app/Views/'.$view . '.php');
+            }
+                    
+            $template = new Template();
+            $template->run($contentPage, $data);
         }
     }
 }

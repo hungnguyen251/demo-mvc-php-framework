@@ -9,9 +9,12 @@ if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
     $webRoot = 'http://' . $_SERVER['HTTP_HOST'];
 }
 
-$character = explode('\\', strtolower(__DIR__ROOT));
-$handleCharacter = implode('/', $character);
-$folder = str_replace(strtolower($_SERVER['DOCUMENT_ROOT']), '', $handleCharacter);
+$dirRoot = str_replace('\\', '/', __DIR__ROOT);
+$documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
+
+// $character = explode('\\', strtolower(__DIR__ROOT));
+// $handleCharacter = implode('/', $character);
+$folder = str_replace(strtolower($documentRoot), '', strtolower($dirRoot));
 // $webRoot = $webRoot . '/' . $folder;
 $webRoot = $webRoot . $folder;
 
@@ -75,6 +78,9 @@ require_once 'core/View.php';
 
 //Load Base Model
 require_once 'core/Model.php';
+
+//Load Template Class
+require_once 'core/Template.php'; 
 
 //Load base controller
 require_once 'core/Controller.php';
