@@ -54,6 +54,10 @@ class App
         $urlArr = array_filter(explode('/',$url));
         $urlArr = array_values($urlArr);
 
+        //Xử lí Middleware
+        $this->handleGlobalMiddleware($this->__db);
+        $this->handleRouteMiddleware($this->__routes->getUri(), $this->__db);
+
         //Gọi ra hàm handleAppServiceProvider
         $this->handleAppServiceProvider($this->__db);
 
@@ -116,6 +120,55 @@ class App
         require_once 'error/' . $name . '.php';
     }
 
+    public function handleRouteMiddleware($keyRoute, $db) {
+        global $config;
+        $keyRoute = trim($keyRoute);
+
+        //Check config middleware va require
+        if (!empty($config['app']['routeMiddleware'])) {
+            $routeMiddlewareArr = $config['app']['routeMiddleware'];
+
+            foreach ($routeMiddlewareArr as $key=>$middlewareItem) {
+                if (trim($key) == $keyRoute && file_exists($middlewareItem . '.php')) {
+                    require_once $middlewareItem  . '.php';
+
+                    if (class_exists($middlewareItem)) {
+                        $middlewareObj = new $middlewareItem();
+
+                        if (!empty($db)) {
+                            $middlewareObj->db = $db;
+                        }
+                        $middlewareObj->handle();
+                    }
+                }
+            }
+        }
+    }
+
+    public function handleGlobalMiddleware($db) {
+        global $config;
+
+        //Check config middleware va require
+        if (!empty($config['app']['globalMiddleware'])) {
+            $globalMiddlewareArr = $config['app']['globalMiddleware'];
+
+            foreach ($globalMiddlewareArr as $middlewareItem) {
+                if (file_exists($middlewareItem . '.php')) {
+                    require_once $middlewareItem  . '.php';
+
+                    if (class_exists($middlewareItem)) {
+                        $middlewareObj = new $middlewareItem();
+
+                        if (!empty($db)) {
+                            $middlewareObj->db = $db;
+                        }
+                        $middlewareObj->handle();
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * Hàm xử lý Service Provider
      */
@@ -133,7 +186,7 @@ class App
                         if (!empty($db)) {
                             $serviceObject->db = $db;
                         }
-                        
+
                         $serviceObject->boot();
                     }
                 }

@@ -17,6 +17,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = $this->home->getList();
+        var_dump('Đây là trang chủ');
         // print_r($data);
         
         //Check tinh nang session

@@ -12,7 +12,8 @@ if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
 $character = explode('\\', strtolower(__DIR__ROOT));
 $handleCharacter = implode('/', $character);
 $folder = str_replace(strtolower($_SERVER['DOCUMENT_ROOT']), '', $handleCharacter);
-$webRoot = $webRoot . '/' . $folder;
+// $webRoot = $webRoot . '/' . $folder;
+$webRoot = $webRoot . $folder;
 
 define('__WEB__ROOT', $webRoot);
 
@@ -27,9 +28,17 @@ if (!empty($configsDir)) {
     }
 }
 
-require_once 'core/Route.php'; //Load Route class
-require_once 'core/Session.php'; //Load Session
-require_once 'app/App.php'; //Load App
+//Load load class
+require_once 'core/Load.php'; 
+
+//Load Middlewares Class
+require_once 'core/Middlewares.php';
+
+//Load Route Class
+require_once 'core/Route.php';
+
+ //Load Session Class
+require_once 'core/Session.php';
 
 //Check và load database
 if (!empty($config['database'])) {
@@ -55,10 +64,23 @@ if (!empty($allHelpers)) {
     }
 }
 
-require_once 'core/ServiceProvider.php'; //Load Service Provider Class
-require_once 'core/View.php'; //Load View Class
+ //Load App
+require_once 'app/App.php';
 
-require_once 'core/Model.php'; //Load Base Model
-require_once 'core/Controller.php'; //Load base controller
-require_once 'core/Request.php'; //Load Request
-require_once 'core/Response.php'; //Load Response
+//Load Service Provider Class
+require_once 'core/ServiceProvider.php'; 
+
+//Load View Class
+require_once 'core/View.php';
+
+//Load Base Model
+require_once 'core/Model.php';
+
+//Load base controller
+require_once 'core/Controller.php';
+
+//Load Request Class
+require_once 'core/Request.php';
+
+//Load Response Class
+require_once 'core/Response.php';
