@@ -1,0 +1,166 @@
+<?php
+
+//Xây dựng command line php artisan (ref: Laravel)
+//1.Cmd khởi tạo controller: php artisan make:controller NameController
+if (!empty($_SERVER['argv'][1]) && "make:controller" == $_SERVER['argv'][1]) {
+    if (!empty($_SERVER['argv'][2])) {
+        $nameController = $_SERVER['argv'][2];
+
+        if (!file_exists('app/Controllers/'. $nameController .'.php')) {
+            $data = '<?php
+namespace App\Controller;
+use Controller;
+
+class '.$nameController.' extends Controller
+{
+    public function __construct() {
+        //contruct
+    }
+
+    public function index() {
+        //index
+    }
+
+    public function store() {
+        //store
+    }
+
+    public function show() {
+        //show
+    }
+
+    public function update() {
+        //update
+    }
+
+    public function destroy() {
+        //destroy
+    }
+}
+        ';
+
+            file_put_contents('app/Controllers/'. $nameController .'.php', $data);
+
+            //In ra thông báo màu sắc cho rực rỡ
+            echo "\033[35m Controller $nameController đã được tạo thành công \033[0m \n";
+        } else {
+            echo "\033[31m Đã tồn tại tên Controller $nameController \033[0m \n";
+        }
+    }
+}
+
+//2.Cmd xóa controller: php artisan delete:controller NameController
+if (!empty($_SERVER['argv'][1]) && "delete:controller" == $_SERVER['argv'][1]) {
+    if (!empty($_SERVER['argv'][2])) {
+        $nameController = $_SERVER['argv'][2];
+
+        if (file_exists('app/Controllers/'. $nameController .'.php')) {
+            unlink('app/Controllers/'. $nameController .'.php');
+
+            //In ra thông báo màu sắc cho rực rỡ
+            echo "\033[35m Controller $nameController đã được xóa thành công \033[0m\n";
+        } else {
+            echo "\033[31m Không tồn tại tên Controller $nameController \033[0m \n";
+        }
+    }
+}
+
+//3.Cmd khởi tạo Model: php artisan make:model NameModel
+if (!empty($_SERVER['argv'][1]) && "make:model" == $_SERVER['argv'][1]) {
+    if (!empty($_SERVER['argv'][2])) {
+        $nameModel = $_SERVER['argv'][2];
+
+        if (!file_exists('app/Models/'. $nameModel .'.php')) {
+            $data = '<?php
+namespace App\Models;
+use Model;
+
+class '.$nameModel.' extends Model
+{
+    protected $table = "";
+
+    public function tableFill() {
+        return $this->table;
+    }
+
+    public function fieldFill() {
+        //return field fill
+    }
+
+    public function primaryKey() {
+        //return primary key
+    }
+}
+        ';
+
+            file_put_contents('app/Models/'. $nameModel .'.php', $data);
+
+            //In ra thông báo màu sắc cho rực rỡ
+            echo "\033[35m Model $nameModel đã được tạo thành công \033[0m \n";
+        } else {
+            echo "\033[31m Đã tồn tại tên Model $nameModel \033[0m \n";
+        }
+    }
+}
+
+//4.Cmd xóa controller: php artisan delete:model NameModel
+if (!empty($_SERVER['argv'][1]) && "delete:model" == $_SERVER['argv'][1]) {
+    if (!empty($_SERVER['argv'][2])) {
+        $nameModel = $_SERVER['argv'][2];
+
+        if (file_exists('app/Models/'. $nameModel .'.php')) {
+            unlink('app/Models/'. $nameModel .'.php');
+
+            //In ra thông báo màu sắc cho rực rỡ
+            echo "\033[35m Model $nameModel đã được xóa thành công \033[0m\n";
+        } else {
+            echo "\033[31m Không tồn tại tên Model $nameModel \033[0m \n";
+        }
+    }
+}
+
+//5.Cmd khởi tạo Middleware: php artisan make:middleware NameMiddleware
+if (!empty($_SERVER['argv'][1]) && "make:middleware" == $_SERVER['argv'][1]) {
+    if (!empty($_SERVER['argv'][2])) {
+        $nameMiddleware = $_SERVER['argv'][2];
+
+        if (!file_exists('app/Middlewares/'. $nameMiddleware .'.php')) {
+            $data = '<?php
+namespace App\Middlewares;
+use Middlewares;
+
+class '.$nameMiddleware.' extends Middlewares
+{
+    public function handle() {
+        //handle middleware
+    }
+}
+        ';
+
+            file_put_contents('app/Middlewares/'. $nameMiddleware .'.php', $data);
+
+            //In ra thông báo màu sắc cho rực rỡ
+            echo "\033[35m Middleware $nameMiddleware đã được tạo thành công \033[0m \n";
+        } else {
+            echo "\033[31m Đã tồn tại tên Middleware $nameMiddleware \033[0m \n";
+        }
+    }
+}
+
+//4.Cmd xóa Middleware: php artisan delete:middleware NameMiddleware
+if (!empty($_SERVER['argv'][1]) && "delete:middleware" == $_SERVER['argv'][1]) {
+    if (!empty($_SERVER['argv'][2])) {
+        $nameMiddleware = $_SERVER['argv'][2];
+
+        if (file_exists('app/Middlewares/'. $nameMiddleware .'.php')) {
+            unlink('app/Middlewares/'. $nameMiddleware .'.php');
+
+            //In ra thông báo màu sắc cho rực rỡ
+            echo "\033[35m Middleware $nameMiddleware đã được xóa thành công \033[0m\n";
+        } else {
+            echo "\033[31m Không tồn tại tên Middleware $nameMiddleware \033[0m \n";
+        }
+    }
+}
+
+//Custom artisan
