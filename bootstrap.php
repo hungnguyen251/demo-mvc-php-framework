@@ -88,5 +88,8 @@ require_once 'core/Controller.php';
 //Load Request Class
 require_once 'core/Request.php';
 
+//Load Validator Class
+require_once 'core/Validator.php';
+
 //Load Response Class
 require_once 'core/Response.php';
