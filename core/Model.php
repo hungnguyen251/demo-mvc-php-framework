@@ -4,8 +4,7 @@ abstract class Model extends Database
 {
     protected $db;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->db = new Database();
     }
 
@@ -15,8 +14,7 @@ abstract class Model extends Database
 
     abstract function primaryKey();
 
-    public function get()
-    {
+    public function get() {
         $tableName = $this->tableFill();
         $fieldSelect = $this->fieldFill();
 
@@ -33,8 +31,7 @@ abstract class Model extends Database
         return false;
     }
 
-    public function first()
-    {
+    public function first() {
         $tableName = $this->tableFill();
         $fieldSelect = $this->fieldFill();
 
@@ -51,8 +48,7 @@ abstract class Model extends Database
         return false;
     }
 
-    public function findById($id)
-    {
+    public function findById($id) {
         $tableName = $this->tableFill();
         $fieldSelect = $this->fieldFill();
         $primaryKey = $this->primaryKey();

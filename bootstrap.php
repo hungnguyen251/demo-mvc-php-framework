@@ -3,7 +3,7 @@
 define('__DIR__ROOT', __DIR__);
 
 //Xử lý http root
-if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+if (!empty($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) {
     $webRoot = 'https://' . $_SERVER['HTTP_HOST'];
 } else {
     $webRoot = 'http://' . $_SERVER['HTTP_HOST'];
@@ -12,10 +12,7 @@ if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
 $dirRoot = str_replace('\\', '/', __DIR__ROOT);
 $documentRoot = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
 
-// $character = explode('\\', strtolower(__DIR__ROOT));
-// $handleCharacter = implode('/', $character);
 $folder = str_replace(strtolower($documentRoot), '', strtolower($dirRoot));
-// $webRoot = $webRoot . '/' . $folder;
 $webRoot = $webRoot . $folder;
 
 define('__WEB__ROOT', $webRoot);

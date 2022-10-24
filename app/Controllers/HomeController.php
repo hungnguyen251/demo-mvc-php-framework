@@ -3,35 +3,42 @@ namespace App\Controller;
 
 use App\Models\Home;
 use Controller;
-use Session;
 
 class HomeController extends Controller
 {
     public $home;
+    public $data = [];
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->home = new Home();
     }
     
-    public function index()
-    {
-        $data = $this->home->getList();
-        var_dump('Đây là trang chủ');
-        // print_r($data);
-        
-        //Check tinh nang session
-        // $sessionData = Session::data('test_ss', 'test session');
-        // $sessionData = Session::data();
-        // $sessionData = Session::delete('test_ss');
-        // Session::flash('test_flashSS','test Flash Session');
-        // $sessionData = Session::flash('test_flashSS');
-        // echo ($sessionData);
+    public function index() {
+        $this->data['sub_content']['new_title'] = 'Trang chủ';
+        $this->data['content'] = 'home/index';
+
+        $this->render('layouts\client_layout', $this->data);
     }
 
-    public function edit()
-    {
-        $data = $this->home->getList();
-        print_r($data);
+
+    public function store($data) {
+        //store
+        $this->db->table('home')->insert($data);
+    }
+
+    public function show() {
+        //show
+        $this->db->table('home')->get();
+    }
+
+    public function update($data, $id) {
+        //update
+        $this->db->table('home')->where('id','=', $id)->update($data);
+    }
+
+    public function destroy($id) {
+        //destroy
+        $this->db->table('home')->where('id','=', $id)->delete();
     }
 }
+        

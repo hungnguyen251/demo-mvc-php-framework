@@ -5,8 +5,7 @@ use App\App;
 class Route 
 {
     private $keyRoute = null;
-    function handleRoute($url) 
-    {
+    function handleRoute($url) {
         global $routes;
         unset($routes['default_controller']);
 

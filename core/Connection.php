@@ -4,8 +4,7 @@ class Connection
 {
     private static $instance = null, $connection = null;
 
-    public function __construct($config) 
-    {
+    public function __construct($config) {
         //Mở kết nối đến CSDL
         try {
             $con = new PDO('mysql:host=' . $config['host'] .';dbname=' . $config['db'], $config['user'], $config['password']);
@@ -24,8 +23,7 @@ class Connection
      * Nếu chưa tồn tại connection thì tạo mới không thì sẽ sử dụng connection cũ
      *
     */
-    public static function getInstance($config) 
-    {
+    public static function getInstance($config) {
         if (self::$instance == null) {
             $conn = new Connection($config);
             self::$instance = self::$connection;

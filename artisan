@@ -14,7 +14,7 @@ use Controller;
 class '.$nameController.' extends Controller
 {
     public function __construct() {
-        //contruct
+        //construct
     }
 
     public function index() {
