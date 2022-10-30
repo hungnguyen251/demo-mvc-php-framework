@@ -87,7 +87,6 @@ class Template
         } 
     }
 
-        
     /**
      * Xử lí @php <=> <?php
      */

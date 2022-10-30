@@ -7,14 +7,12 @@ class Database implements ICrud
     private $__conn;
     use QueryBuilder; 
 
-    public function __construct()
-    {
+    public function __construct() {
         global $dbConfig;
         $this->__conn = Connection::getInstance($dbConfig);
     }
 
-    public function insertData($table, $data)
-    {
+    public function insertData($table, $data) {
         if (!empty($data)) {
             $fieldStr = '';
             $valueStr = '';
@@ -35,8 +33,7 @@ class Database implements ICrud
         }
     }
 
-    public function updateById($table,$data,$condition='')
-    {
+    public function updateById($table,$data,$condition='') {
         if (!empty($data)) {
             $updateStr = '';
             foreach ($data as $key=>$value) {
@@ -59,8 +56,7 @@ class Database implements ICrud
         }
     }
 
-    public function getData($table, $condition='')
-    {
+    public function getData($table, $condition='') {
         if (!empty($condition)) {
             $sql = "SELECT * FROM $table WHERE $condition";
         } else {

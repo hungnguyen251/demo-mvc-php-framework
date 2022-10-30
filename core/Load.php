@@ -18,8 +18,8 @@ class Load
         return false;
     }
 
-        /*
-    *   Rendre dữ liệu từ controller ra view
+    /*
+    *   Render dữ liệu từ controller ra view
     */
     static public function view($view, $data=[]) {
         //Đổi key của mảng thành biến: Ví dụ extract($data['user']) = $user

@@ -21,7 +21,7 @@ class  Controller
     }
 
     /*
-    *   Rendre dữ liệu từ controller ra view
+    *   Render dữ liệu từ controller ra view
     */
     public function render($view, $data=[]) {
 
