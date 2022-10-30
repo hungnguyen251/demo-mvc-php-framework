@@ -93,6 +93,3 @@ require_once 'core/Validator.php';
 
 //Load Response Class
 require_once 'core/Response.php';
-
-//Load JsonResponse Class
-require_once 'core/JsonResponse.php';

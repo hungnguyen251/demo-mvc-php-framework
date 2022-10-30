@@ -6,6 +6,7 @@ use Controller;
 use Request;
 use Response;
 use Session;
+use Validator;
 
 class UserController extends Controller
 {
@@ -100,7 +101,10 @@ class UserController extends Controller
     
         }
         $reponse = new Response;
-        $reponse->redirect('user/getuser');
+        $reponse->redirect('user/postuser');
+
+        // $validator = new Validator();
+        // var_dump($validator);
     }
 
     // Hàm check để có thể tự custom các validate mà không dùng mặc định
